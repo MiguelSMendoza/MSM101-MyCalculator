@@ -8,20 +8,41 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
-
-@end
-
 @implementation ViewController
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [[self numbersField] setText:@"0"];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(IBAction)numberButtonDown:(id)sender {
+    UIButton *button = (UIButton*) sender;
+    NSInteger numberPressed = [[[button titleLabel] text] integerValue];
+    NSInteger calculatorValue = [[[self numbersField] text] integerValue];
+    calculatorValue = (calculatorValue * 10)+numberPressed;
+    [[self numbersField] setText:[NSString stringWithFormat:@"%d",(int)calculatorValue]];
+}
+-(IBAction)operationButtonDown:(id)sender {
+    UIButton *button = (UIButton*) sender;
+    operation = [[button titleLabel] text];
+    value = [[[self numbersField] text] integerValue];
+    [[self numbersField] setText:@"0"];
+}
+-(IBAction)removeButtonDown:(id)sender {
+    NSInteger calculatorValue = [[[self numbersField] text] integerValue];
+    calculatorValue = calculatorValue / 10;
+    [[self numbersField] setText:[NSString stringWithFormat:@"%d",(int)calculatorValue]];
+}
+-(IBAction)equalButtonDown:(id)sender {
+    NSInteger result = 0;
+    NSInteger calculatorValue = [[[self numbersField] text] integerValue];
+    if([operation isEqualToString:@"+"]) result = value + calculatorValue;
+    else if([operation isEqualToString:@"-"]) result = value - calculatorValue;
+    else if([operation isEqualToString:@"*"]) result = value * calculatorValue;
+    else if([operation isEqualToString:@"/"]) result = value / calculatorValue;
+    [[self numbersField] setText:[NSString stringWithFormat:@"%d",(int)result]];
+}
+-(IBAction)clearButtonDown:(id)sender {
+    [[self numbersField] setText:@"0"];
 }
 
 @end

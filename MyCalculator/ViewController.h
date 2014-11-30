@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    NSString* operation;
+    NSInteger value;
+}
 
+@property (weak, nonatomic) IBOutlet UILabel *numbersField;
+
+-(IBAction)numberButtonDown:(id)sender;
+-(IBAction)equalButtonDown:(id)sender;
+-(IBAction)operationButtonDown:(id)sender;
+-(IBAction)clearButtonDown:(id)sender;
+-(IBAction)removeButtonDown:(id)sender;
 
 @end
 
